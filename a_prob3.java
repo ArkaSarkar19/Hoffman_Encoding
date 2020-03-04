@@ -4,12 +4,11 @@ class a_prob3{
     public static Map<String, String> mapping = new HashMap<String,String>();
     public static String mystring;
     public static void main(String[] args) throws IOException {
-        File reader = new File("C:\\Users\\Asus\\Desktop\\ADA practice\\Assignment3\\input.txt");
+        File reader = new File("input.txt");
         BufferedReader bufferedReader = new BufferedReader(new FileReader(reader));
         String line;
         String s = ""; 
         while ((line = bufferedReader.readLine()) != null) {
-            System.out.println(line);
             s+=line;
         }
         mystring = s;
@@ -23,6 +22,9 @@ class a_prob3{
         printLevelOrder(root);
         System.out.println("------------------------Encoding----------------------");
         get_encoding(root);
+
+        System.out.println("------------------------Decoding-----------------------");
+        decode_file();
 
     }
     public static ArrayList<Node> gen_nodes(String s){
@@ -107,17 +109,17 @@ class a_prob3{
 
     public static void get_encoding(Node root) throws IOException{
         encd_rec(root, "");
-        FileWriter writer = new FileWriter("C:\\Users\\Asus\\Desktop\\ADA practice\\Assignment3\\mapping.txt");
+        FileWriter writer = new FileWriter("mapping.txt");
         Iterator it = mapping.entrySet().iterator();
         while(it.hasNext()){
             Map.Entry p = (Map.Entry)it.next();
             System.out.println(p.getKey() + " -> " + p.getValue());
-            writer.write(p.getKey() + " -> " + p.getValue());
+            writer.write("'" +p.getKey() + "'" + " -> " + p.getValue());
             writer.write("\r\n");
         }
 
         writer.close();
-        FileWriter writer2 = new FileWriter("C:\\Users\\Asus\\Desktop\\ADA practice\\Assignment3\\encoded.txt");
+        FileWriter writer2 = new FileWriter("encoded.txt");
         String encoding = "";
         for(int i=0;i<mystring.length();i++){
             String enc = mapping.get(Character.toString(mystring.charAt(i)));
@@ -125,12 +127,45 @@ class a_prob3{
         }
         System.out.println("Encoded String is : " + encoding);
         writer2.write(encoding);
-        writer2.write("r\n");
+        writer2.write("\r\n");
         writer2.close();
 
     }
 
+    public static void decode_file() throws IOException{
+        File file = new File("mapping.txt");
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+        String line;
+        Map<String, String> map = new HashMap<String, String>(); 
+        while ((line = bufferedReader.readLine()) != null) {
+            String val = Character.toString(line.charAt(1));
+            String key = line.substring(7,line.length());
+            System.out.println("Key : " + key + " |  value : " + val);
+            map.put(key, val);
+        }
 
+        File f = new File("encoded.txt");
+        BufferedReader br = new BufferedReader(new FileReader(f));
+        String l;
+        String s = "";
+        while((l=br.readLine())!=null){
+            s+=l;
+        }
+
+        String curr_enc = "";  
+        String new_string = "";
+        
+        for(int i=0;i<s.length();i++){
+            curr_enc+=Character.toString(s.charAt(i));
+            if(map.containsKey(curr_enc)){
+                new_string+=map.get(curr_enc);
+                curr_enc = "";
+            }
+        }
+
+        System.out.println("New String : " + new_string);
+
+    }
 
 
     public static void encd_rec(Node root, String enc) throws IOException{
