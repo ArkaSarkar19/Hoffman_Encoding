@@ -14,6 +14,7 @@ class huffman_encoder{
         mystring = s;
         System.out.println(s);
         ArrayList<Node> a = gen_nodes(s);
+        if(a==null) System.exit(0);
         a.forEach(x ->{
             System.out.println(x.value + " "  + x.freq);
         });
@@ -106,7 +107,11 @@ class huffman_encoder{
 
 
     public static void get_encoding(Node root) throws IOException{
-        encd_rec(root, "");
+        if(root.left==null && root.right==null){
+            mapping.put(root.value, "1");
+        }
+        else         encd_rec(root, "");
+
         FileWriter writer = new FileWriter("mapping.txt");
         Iterator it = mapping.entrySet().iterator();
         while(it.hasNext()){
