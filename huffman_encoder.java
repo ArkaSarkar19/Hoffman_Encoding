@@ -13,8 +13,9 @@ class huffman_encoder{
         }
         mystring = s;
         System.out.println(s);
+        try{
         ArrayList<Node> a = gen_nodes(s);
-        if(a==null) System.exit(0);
+
         a.forEach(x ->{
             System.out.println(x.value + " "  + x.freq);
         });
@@ -23,6 +24,21 @@ class huffman_encoder{
         printLevelOrder(root);
         System.out.println("------------------------Encoding----------------------");
         get_encoding(root);
+    }
+    catch (NullPointerException e){
+
+        System.out.println("----------------------------Input File is Empty----------------------------");
+        try{
+        File f1 = new File("mapping.txt");
+        if(f1.exists())f1.delete();
+        f1.createNewFile();
+        File f2 = new File("encoded.txt");
+        if(f2.exists())f2.delete();
+        f2.createNewFile();
+        }
+        catch (IOException f) {};
+
+    }
 
 
     }
@@ -49,6 +65,7 @@ class huffman_encoder{
     }
 
     public static Node gen_hoffman_tree(ArrayList<Node> node){
+        
         PriorityQueue<Node> queue = new PriorityQueue<Node>(new value_comparator());
         node.forEach(x->{
             queue.add(x);
