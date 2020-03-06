@@ -60,6 +60,12 @@ public class FanoShannon{
     }
     public static Node rec_fst(ArrayList<Node> arr, int k){
         if(arr.size() <= 1) return arr.get(0);
+        if(arr.size() == 2) {
+            Node add = new Node("A*", arr.get(0).freq + arr.get(1).freq);
+            add.left = arr.get(0);
+            add.right = arr.get(1);
+            return add;
+        }
         int total_freq = 0;
         for(int j=0;j<arr.size();j++) total_freq+=arr.get(j).freq;
         int n = total_freq/2;
