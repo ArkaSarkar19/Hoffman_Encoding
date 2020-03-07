@@ -4,7 +4,7 @@ class huffman_encoder{
     public static Map<String, String> mapping = new HashMap<String,String>();
     public static String mystring;
     public static String encoded;
-    public static Node root;
+    public static Node Root;
 
     public static void main(String[] args) throws IOException {
         File reader = new File("input.txt");
@@ -24,6 +24,7 @@ class huffman_encoder{
         });
         System.out.println("-----------------Level order traversal-------------");
         Node root = gen_hoffman_tree(a);
+        Root = root;
         printLevelOrder(root);
         System.out.println("------------------------Encoding----------------------");
         get_encoding(root);
