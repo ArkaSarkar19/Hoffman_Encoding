@@ -3,6 +3,7 @@ import java.io.*;
 public class FanoShannon{
     public static String mystring = null;
     public static Map<String, String> mapping = new HashMap<String,String>();
+    public static String encoded;
 
     public static void main(String[] args) throws IOException {
         File reader = new File("input.txt");
@@ -83,19 +84,6 @@ public class FanoShannon{
             if(m<=i) left_arr.add(arr.get(m));
             else right_arr.add(arr.get(m));
         }
-        // System.out.println();
-        // System.out.println("===========left array =================");
-        // System.out.println();
-        // left_arr.forEach(x->{
-        //     System.out.print("|" + x.value + "                "  + x.freq+ "|");
-        // });
-        // System.out.println();
-        // System.out.println("===========right array ==================");
-        // System.out.println();
-        // right_arr.forEach(x->{
-        //     System.out.print("|" + x.value + " "  + x.freq+ "|");
-
-        // });
         root.left = rec_fst((ArrayList<Node>)left_arr, k++);
         root.right = rec_fst((ArrayList<Node>)right_arr, k++);
         return root;
@@ -164,6 +152,7 @@ public class FanoShannon{
             encoding+=enc;
         }
         System.out.println("Encoded String is : " + encoding);
+        encoded = encoding;
         writer2.write(encoding);
         writer2.write("\r\n");
         writer2.close();
@@ -228,20 +217,5 @@ class freq_comparator implements Comparator<Node>{
     public int compare(Node p, Node q){
         if(p.freq > q.freq) return 1;
         else return -1;
-    }
-}
-class Node{
-    String value;
-    int freq;
-    Node left;
-    Node right;
-    public Node(String value, int freq){
-        this.value = value;
-        this.freq = freq;
-        left = null;
-        right = null;
-    }
-    public void display(){
-        System.out.println(value + " ::  " + freq);
     }
 }

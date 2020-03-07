@@ -3,6 +3,7 @@ import java.io.*;
 class huffman_encoder{
     public static Map<String, String> mapping = new HashMap<String,String>();
     public static String mystring;
+    public static String encoded;
     public static void main(String[] args) throws IOException {
         File reader = new File("input.txt");
         BufferedReader bufferedReader = new BufferedReader(new FileReader(reader));
@@ -146,6 +147,7 @@ class huffman_encoder{
             encoding+=enc;
         }
         System.out.println("Encoded String is : " + encoding);
+        encoded = encoding;
         writer2.write(encoding);
         writer2.write("\r\n");
         writer2.close();
