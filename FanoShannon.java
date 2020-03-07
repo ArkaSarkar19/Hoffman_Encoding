@@ -4,6 +4,7 @@ public class FanoShannon{
     public static String mystring = null;
     public static Map<String, String> mapping = new HashMap<String,String>();
     public static String encoded;
+    public static Node root;
 
     public static void main(String[] args) throws IOException {
         File reader = new File("input.txt");
