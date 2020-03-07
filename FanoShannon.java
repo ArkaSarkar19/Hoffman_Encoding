@@ -219,3 +219,19 @@ class freq_comparator implements Comparator<Node>{
         else return -1;
     }
 }
+
+// class Node{
+//     String value;
+//     int freq;
+//     Node left;
+//     Node right;
+//     public Node(String value, int freq){
+//         this.value = value;
+//         this.freq = freq;
+//         left = null;
+//         right = null;
+//     }
+//     public void display(){
+//         System.out.println(value + " " + freq);
+//     }
+// }
